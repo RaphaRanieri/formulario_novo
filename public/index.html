@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Inscrição</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Formulário de Inscrição</h1>
+            <p>Preencha os campos abaixo com atenção.</p>
+        </div>
+
+        <form id="main-form">
+            
+            <div class="form-card">
+                <label for="nome" class="form-label">Nome Completo</label>
+                <input type="text" id="nome" name="nome" class="form-input" required>
+            </div>
+
+            <div class="form-card">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-input" required>
+            </div>
+
+            <div class="form-card">
+                <label for="telefone" class="form-label">Telefone</label>
+                <input type="tel" id="telefone" name="telefone" class="form-input" placeholder="(XX) XXXXX-XXXX" required>
+            </div>
+
+            <div class="form-card">
+                <label for="endereco" class="form-label">Endereço</label>
+                <input type="text" id="endereco" name="endereco" class="form-input" required>
+            </div>
+
+            <div class="form-card">
+                <label for="nascimento" class="form-label">Data de Nascimento</label>
+                <input type="date" id="nascimento" name="nascimento" class="form-input" required>
+            </div>
+
+            <div class="form-card question-card">
+                <fieldset>
+                    <legend class="form-label-question">Qual sua cor favorita? *</legend>
+                    <div class="radio-option">
+                        <input type="radio" id="q1-opt1" name="q1" value="opt1" required>
+                        <label for="q1-opt1">Vermelho</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q1-opt2" name="q1" value="opt2">
+                        <label for="q1-opt2">Azul</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q1-opt3" name="q1" value="opt3">
+                        <label for="q1-opt3">Verde</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="form-card question-card">
+                <fieldset>
+                    <legend class="form-label-question">Qual sua estação preferida? *</legend>
+                    <div class="radio-option">
+                        <input type="radio" id="q2-opt1" name="q2" value="opt1" required>
+                        <label for="q2-opt1">Verão</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q2-opt2" name="q2" value="opt2">
+                        <label for="q2-opt2">Inverno</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q2-opt3" name="q2" value="opt3">
+                        <label for="q2-opt3">Primavera</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="form-card question-card">
+                <fieldset>
+                    <legend class="form-label-question">Qual seu hobby principal? *</legend>
+                    <div class="radio-option">
+                        <input type="radio" id="q3-opt1" name="q3" value="opt1" required>
+                        <label for="q3-opt1">Ler Livros</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q3-opt2" name="q3" value="opt2">
+                        <label for="q3-opt2">Praticar Esportes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="q3-opt3" name="q3" value="opt3">
+                        <label for="q3-opt3">Assistir Filmes</label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="terms-card">
+                <input type="checkbox" id="termos" name="termos" required>
+                <label for="termos">
+                    Eu li e aceito os <a href="/termos" target="_blank">Termos de Uso</a>.
+                </label>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="submit-btn">Enviar</button>
+            </div>
+
+            <div id="success-message" class="success-message" style="display: none;">
+                Obrigado! Seu envio foi registrado.
+            </div>
+            
+            <div id="error-message" class="error-message" style="display: none;">
+                Por favor, preencha todos os campos obrigatórios.
+            </div>
+
+        </form>
+
+        <footer>
+            <a href="/stats" class="hidden-link" title="Versão do Servidor 1.0.0">v1.0.0</a>
+        </footer>
+    </div>
+
+    <script src="/js/form.js"></script>
+</body>
+</html>

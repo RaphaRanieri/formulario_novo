@@ -1,0 +1,292 @@
+/* Reset Básico e Fontes */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinha no topo */
+    min-height: 100vh;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Container Principal do Formulário */
+.form-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 650px;
+    width: 100%;
+    margin: 20px auto;
+    border-top: 10px solid #673ab7; /* Roxo do Google Forms */
+}
+
+/* Cabeçalho */
+.form-header {
+    padding: 30px 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #202124;
+    margin: 0 0 10px 0;
+}
+
+.form-header p {
+    font-size: 1rem;
+    color: #5f6368;
+    margin: 0;
+}
+
+/* Cards de Campos */
+form {
+    padding: 10px 40px 30px 40px;
+}
+
+.form-card {
+    background-color: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 24px;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-card:focus-within {
+    border-color: #673ab7;
+    box-shadow: 0 0 0 2px rgba(103, 58, 183, 0.2);
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #3c4043;
+    margin-bottom: 12px;
+}
+
+/* Inputs de Texto, Email, Data, etc. */
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.form-input:focus {
+    background-color: #fff;
+    border-color: #673ab7;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(103, 58, 183, 0.1);
+}
+
+/* Perguntas (Radio Buttons) */
+.question-card fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-label-question {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #3c4043;
+    margin-bottom: 16px;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    position: relative;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.radio-option:hover {
+    background-color: #f8f9fa;
+}
+
+.radio-option input[type="radio"] {
+    opacity: 0; /* Esconde o radio original */
+    position: absolute;
+}
+
+.radio-option label {
+    font-size: 0.95rem;
+    color: #5f6368;
+    cursor: pointer;
+    padding-left: 35px; /* Espaço para o radio customizado */
+    position: relative;
+    line-height: 20px;
+}
+
+/* Círculo customizado (externo) */
+.radio-option label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #5f6368;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: border-color 0.2s;
+}
+
+/* Círculo customizado (interno) */
+.radio-option label::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #673ab7;
+    transform: scale(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Estado checado */
+.radio-option input[type="radio"]:checked + label::before {
+    border-color: #673ab7;
+}
+
+.radio-option input[type="radio"]:checked + label::after {
+    transform: scale(1);
+}
+
+.radio-option input[type="radio"]:focus + label::before {
+    box-shadow: 0 0 0 2px rgba(103, 58, 183, 0.2);
+}
+
+/* Termos de Uso (Checkbox) */
+.terms-card {
+    padding: 16px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.terms-card input[type="checkbox"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #673ab7; /* Cor moderna para o checkbox */
+}
+
+.terms-card label {
+    font-size: 0.9rem;
+    color: #5f6368;
+}
+
+.terms-card a {
+    color: #673ab7;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-card a:hover {
+    text-decoration: underline;
+}
+
+/* Botão de Envio */
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.submit-btn {
+    background-color: #673ab7;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submit-btn:hover {
+    background-color: #5e35b1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:disabled {
+    background-color: #b0bec5;
+    cursor: not-allowed;
+}
+
+/* Mensagens de Feedback */
+.success-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    color: #2e7d32;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.error-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ffebee;
+    border: 1px solid #ef9a9a;
+    color: #c62828;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Página de Termos */
+.legal-text {
+    line-height: 1.7;
+}
+.legal-text h2 {
+    color: #3c4043;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 25px;
+}
+.legal-text p {
+    color: #5f6368;
+}
+
+/* Rodapé e Link Oculto */
+footer {
+    text-align: center;
+    padding: 20px 0 10px 0;
+}
+
+.hidden-link {
+    font-size: 0.8rem;
+    color: #aaa;
+    text-decoration: none;
+    opacity: 0.5; /* Faz parecer uma nota de rodapé genérica */
+    transition: opacity 0.3s;
+}
+
+.hidden-link:hover {
+    opacity: 1;
+    color: #673ab7;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "formulario_novo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaphaRanieri/formulario_novo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RaphaRanieri/formulario_novo/issues"
+  },
+  "homepage": "https://github.com/RaphaRanieri/formulario_novo#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
