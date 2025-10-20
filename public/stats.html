@@ -1,196 +1,142 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estatísticas do Formulário</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Estilos específicos para a página de stats */
-        body { background-color: #f0f2f5; }
-        .stats-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 900px;
-            margin: 40px auto;
-        }
-        .stat-card {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        .stat-card h2 {
-            margin-top: 0;
-            border-bottom: 2px solid #673ab7;
-            padding-bottom: 10px;
-            color: #333;
-        }
-        .total-submissions {
-            text-align: center;
-            background-color: #673ab7;
-            color: white;
-            padding: 30px;
-            border-radius: 8px;
-        }
-        .total-submissions h2 {
-            border-bottom: none;
-            color: white;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .total-submissions .count {
-            font-size: 3.5rem;
-            font-weight: 700;
-        }
-        .progress-bar-group { margin-top: 15px; }
-        .progress-bar-label {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 500;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        .progress-bar-container {
-            width: 100%;
-            background-color: #e0e0e0;
-            border-radius: 25px;
-            height: 25px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            background-color: #7e57c2;
-            border-radius: 25px;
-            text-align: center;
-            line-height: 25px;
-            color: white;
-            font-weight: 500;
-            transition: width 0.5s ease-in-out;
-            white-space: nowrap;
-            overflow: hidden;
-            min-width: 40px; /* Garante que o texto '0%' seja visível */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Estatísticas do Formulário</title>
+  <link rel="stylesheet" href="estatistica.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+  <h1>📊 Estatísticas do Formulário</h1>
 
-    <div class="form-container" style="max-width: 900px; padding: 20px; border-top: none; background: none; box-shadow: none;">
-        <div class="form-header" style="padding-bottom: 0; background: white; border-radius: 8px; border-top: 10px solid #673ab7;">
-            <h1 style="color: #673ab7;">Painel de Estatísticas</h1>
-            <p>Dados atualizados automaticamente a cada 5 segundos.</p>
-        </div>
-    </div>
+  <script>
+    // Mapeamento das chaves do objeto para os títulos das perguntas
+    // ESTA SEÇÃO ABAIXO JÁ ESTÁ CORRETA, MAS É A CHAVE PARA PASSAR OS TÍTULOS.
+    const titulosPerguntas = {
+        motivo1: 'Pergunta 1: Você se preocupa com sua segurança online?',
+        motivo2: 'Pergunta 2: Já teve problemas com segurança digital?',
+        motivo3: 'Pergunta 3: Se sim, acha que aconteceria novamente?'
+    };
 
-    <div class="stats-container">
-        <div class="total-submissions">
-            <h2>Total de Envios</h2>
-            <div id="total-count" class="count">0</div>
-        </div>
+    // Cores pré-definidas para os gráficos de pizza
+    const cores = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+    ];
 
-        <div class="stat-card">
-            <h2>Qual sua cor favorita?</h2>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Vermelho</span>
-                    <span id="q1-opt1-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q1-opt1-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Azul</span>
-                    <span id="q1-opt2-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q1-opt2-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Verde</span>
-                    <span id="q1-opt3-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q1-opt3-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-        </div>
+    let camposChart = null;
+    let perguntasCharts = {}; 
 
-        <div class="stat-card">
-            <h2>Qual sua estação preferida?</h2>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Verão</span>
-                    <span id="q2-opt1-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q2-opt1-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Inverno</span>
-                    <span id="q2-opt2-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q2-opt2-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Primavera</span>
-                    <span id="q2-opt3-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q2-opt3-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-        </div>
+    async function atualizar() {
+      try {
+        // Busca os dados na API JSON
+        const res = await fetch('/estatisticas/dados');
+        if (!res.ok) {
+            throw new Error(`Erro ao buscar dados: ${res.statusText}`);
+        }
+        const dados = await res.json();
         
-        <div class="stat-card">
-            <h2>Qual seu hobby principal?</h2>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Ler Livros</span>
-                    <span id="q3-opt1-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q3-opt1-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Praticar Esportes</span>
-                    <span id="q3-opt2-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q3-opt2-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-            <div class="progress-bar-group">
-                <div class="progress-bar-label">
-                    <span>Assistir Filmes</span>
-                    <span id="q3-opt3-count">0</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div id="q3-opt3-bar" class="progress-bar">0%</div>
-                </div>
-            </div>
-        </div>
-        
-        <footer style="text-align: center; margin-top: 20px;">
-            <a href="/" class="submit-btn" style="text-decoration: none; background-color: #555;">Voltar ao Formulário</a>
-        </footer>
-    </div>
+        renderizarGraficoCampos(dados.campos);
+        renderizarGraficosPerguntas(dados.perguntas);
 
-    <script src="/js/stats.js"></script>
+      } catch (error) {
+        console.error('Falha ao atualizar estatísticas:', error);
+      }
+    }
+    
+    // 1. Renderiza o Gráfico de Barras para Campos Preenchidos
+    function renderizarGraficoCampos(dadosCampos) {
+        // Destrói o gráfico antigo para evitar vazamento de memória e conflitos
+        if (camposChart) camposChart.destroy();
+        
+        const ctx1 = document.getElementById('camposChart').getContext('2d');
+        camposChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(dadosCampos),
+                datasets: [{
+                    label: 'Contagem de Preenchimentos',
+                    data: Object.values(dadosCampos),
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: { 
+                responsive: true, 
+                scales: { 
+                    y: { 
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 } 
+                    } 
+                } 
+            }
+        });
+    }
+
+    // 2. Renderiza Gráficos de Pizza (Doughnut) para as Perguntas
+    function renderizarGraficosPerguntas(dadosPerguntas) {
+        const container = document.getElementById('perguntas-container');
+        // Limpa e destrói gráficos anteriores
+        container.innerHTML = '';
+        Object.keys(perguntasCharts).forEach(key => perguntasCharts[key].destroy());
+        perguntasCharts = {};
+
+        Object.keys(dadosPerguntas).forEach((chavePergunta) => {
+            const respostas = dadosPerguntas[chavePergunta];
+            const labels = Object.keys(respostas);
+            const data = Object.values(respostas);
+            
+            // Pular se não houver dados (opcional, mas bom para evitar gráficos vazios)
+            const total = data.reduce((a, b) => a + b, 0);
+            if (total === 0) return;
+
+            // Cria um novo container e canvas para cada gráfico
+            const chartWrapper = document.createElement('div');
+            chartWrapper.style.width = '300px'; 
+            chartWrapper.style.height = '350px'; // Altura ajustada para o título e legenda
+            chartWrapper.style.textAlign = 'center';
+            chartWrapper.innerHTML = `<canvas id="${chavePergunta}Chart"></canvas>`;
+            container.appendChild(chartWrapper);
+
+            const ctx = document.getElementById(`${chavePergunta}Chart`).getContext('2d');
+            
+            // Cria o novo gráfico Doughnut
+            perguntasCharts[chavePergunta] = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: cores.slice(0, data.length),
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, 
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            // O título é buscado usando a chave da pergunta no objeto titulosPerguntas
+                            text: titulosPerguntas[chavePergunta] || chavePergunta, 
+                            padding: {
+                                top: 5,
+                                bottom: 10
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+
+    // Inicia a primeira atualização e configura o intervalo
+    atualizar();
+    setInterval(atualizar, 5000); 
+  </script>
 </body>
 </html>
